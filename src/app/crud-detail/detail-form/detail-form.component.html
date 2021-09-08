@@ -1,0 +1,283 @@
+<div class="container">
+    <ng-container *ngIf="fromPage === 'detailPage'">
+        <form [formGroup]="detailForm">
+            <div class="mb-3 row">
+                <label for="inputFirstName" class="col-sm-3 col-form-label">First Name</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="firstName" class="form-control" id="inputFirstName">
+                    <div
+                        *ngIf="detailForm.controls.firstName.invalid && (detailForm.controls.firstName.dirty || detailForm.controls.firstName.touched)">
+                        <span class="errorMsg" *ngIf="detailForm.controls.firstName.errors?.required">First name is
+                            required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputLastName" class="col-sm-3 col-form-label">Last Name</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="lastName" class="form-control" id="inputLastName">
+                    <div
+                        *ngIf="detailForm.controls.lastName.invalid && detailForm.controls.lastName.dirty || detailForm.controls.lastName.touched">
+                        <span class="errorMsg" *ngIf="detailForm.controls.lastName.errors?.required">Last name is
+                            required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="email" formControlName="email" class="form-control" id="inputEmail">
+                    <div
+                        *ngIf="detailForm.controls.email.invalid && (detailForm.controls.email.dirty || detailForm.controls.email.touched)">
+                        <span class="errorMsg" *ngIf="detailForm.controls.email.errors?.required">Email is
+                            required</span>
+                        <span class="errorMsg" *ngIf="detailForm.controls.email.errors?.email">Email is invalid</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPhone" class="col-sm-3 col-form-label">Phone</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="phone" class="form-control" id="inputPhone">
+                    <div
+                        *ngIf="detailForm.controls.phone.invalid && (detailForm.controls.phone.dirty || detailForm.controls.phone.touched)">
+                        <span class="errorMsg" *ngIf="detailForm.controls.phone.errors?.required">Phone number is
+                            required</span>
+                        <span class="errorMsg" *ngIf="detailForm.controls.phone.errors?.minlength">Phone number only 10
+                            characters long</span>
+                        <span class="errorMsg" *ngIf="detailForm.controls.phone.errors?.maxlength">Phone number only 10
+                            characters long</span>
+                        <div class="errorMsg" *ngIf="detailForm.controls.phone.errors?.pattern">Phone number is invalid
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputAge" class="col-sm-3 col-form-label">Age</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="age" class="form-control" id="inputAge">
+                    <div
+                        *ngIf="detailForm.controls.age.invalid && (detailForm.controls.age.dirty || detailForm.controls.age.touched)">
+                        <span class="errorMsg" *ngIf="detailForm.controls.age.errors?.required">Age is required</span>
+                        <div class="errorMsg" *ngIf="detailForm.controls.age.errors?.pattern">Age is invalid</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+
+    <ng-container *ngIf="fromPage === 'dynamicFormPage'">
+        <form [formGroup]="dynamicDetailForm">
+            <div class="mb-3 row">
+                <label for="inputFormName" class="col-sm-3 col-form-label">Form Name</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="formName" class="form-control" id="inputFormName"
+                        [readonly]="tableArray.length > 0">
+                    <div
+                        *ngIf="dynamicDetailForm.controls.formName.invalid && (dynamicDetailForm.controls.formName.dirty || dynamicDetailForm.controls.formName.touched)">
+                        <span class="errorMsg" *ngIf="dynamicDetailForm.controls.formName.errors?.required">Form name is
+                            required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputQuestion" class="col-sm-3 col-form-label">Question</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="question" class="form-control" id="inputQuestion">
+                    <div
+                        *ngIf="dynamicDetailForm.controls.question.invalid && (dynamicDetailForm.controls.question.dirty || dynamicDetailForm.controls.question.touched)">
+                        <span class="errorMsg" *ngIf="dynamicDetailForm.controls.question.errors?.required">Question is
+                            required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputQuestionType" class="col-sm-3 col-form-label">Question Type</label>
+                <div class="col-sm-9">
+                    <select class="form-select" formControlName="questionType" (change)="changeQuestionType($event)"
+                        id="inputQuestionType">
+                        <option value="1">Short</option>
+                        <option value="2">Long</option>
+                        <option value="3">CheckBox</option>
+                        <option value="4">Radio</option>
+                        <option value="5">Date</option>
+                    </select>
+                    <div
+                        *ngIf="dynamicDetailForm.controls.questionType.invalid && (dynamicDetailForm.controls.questionType.dirty || dynamicDetailForm.controls.questionType.touched)">
+                        <span class="errorMsg" *ngIf="dynamicDetailForm.controls.questionType.errors?.required">Question
+                            Type is required</span>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="f.questionType.value == 3 || f.questionType.value == 4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <button style="margin-bottom: 10px;float: right;" type="button"
+                                class="btn btn-outline-warning" (click)="addOption()">Add
+                                Options</button>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr *ngFor="let item of formArrayControll?.controls; let i = index">
+                                        <td>
+                                            <div formArrayName="option">
+                                                <div [formGroupName]="i">
+                                                    <input type="text" formControlName="textValue" class="form-control">
+                                                    <div
+                                                        *ngIf="item.get('textValue')?.invalid && (item.get('textValue')?.dirty || item.get('textValue')?.touched)">
+                                                        <span *ngIf="item.get('textValue')?.errors?.required"
+                                                            class="errorMsg">Option
+                                                            value is
+                                                            required</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span (click)="deleteOption(i)"
+                                                *ngIf="i != 0 && f.questionType.value == '3'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                </svg>
+                                            </span>
+                                            <span (click)="deleteOption(i)"
+                                                *ngIf="(i != 0 && i != 1) && f.questionType.value == '4'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                </svg>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+       
+            <div class="table-responsive">
+                <button style="margin-bottom: 10px;margin-top: 10px;float: right;" type="button"
+                class="btn btn-outline-success" (click)="submit(true)">Add To List</button>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Questions
+                            </th>
+                            <th>
+                                Question Type
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                        <tr *ngFor="let item of tableArray; let i = index">
+                            <td>
+                                {{item.question}}
+                            </td>
+                            <td>
+                                <div class="mb-3 row" [ngSwitch]="item.questionType">
+                                    <div class="col-sm-9" *ngSwitchCase="1">
+                                        Short
+                                    </div>
+                                    <div class="col-sm-9" *ngSwitchCase="2">
+                                        Long
+                                    </div>
+                                    <div class="col-sm-9" *ngSwitchCase="3">
+                                        CheckBox
+                                    </div>
+                                    <div class="col-sm-9" *ngSwitchCase="4">
+                                        Radio
+                                    </div>
+                                    <div class="col-sm-9" *ngSwitchCase="5">
+                                        Date
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align: center;">
+                                <span (click)="deleteFromQuestionList(i)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                        <path fill-rule="evenodd"
+                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                    </svg>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </ng-container>
+
+    <ng-container *ngIf="fromPage === 'finalForm'">
+        <h2 style="text-align: center;">{{finalGeneratedFormObj.formName}}</h2>
+        <form [formGroup]="questionDetailForm">
+            <div style="margin-bottom: 10px;"
+                *ngFor="let questions of finalGeneratedFormObj.question; let questionIndex = index;trackBy:identify">
+                <h6><span style="font-weight: bold;color: red;">Q.{{questionIndex.toString().length == 1 ? '0' + (questionIndex + 1) : questionIndex + 1}}</span>
+                    <span style="font-weight: bold;margin-left: 5px;">{{questions.question}}</span></h6>
+                <div class="mb-3 row" [ngSwitch]="questions.questionType">
+                    <div class="col-sm-9" *ngSwitchCase="1">
+                        <input type="text" formControlName="short{{questionIndex}}" class="form-control" name="short{{questionIndex}}">
+                    </div>
+                    <div class="col-sm-9" *ngSwitchCase="2">
+                        <textarea formControlName="long{{questionIndex}}" class="form-control" rows="3" name="long{{questionIndex}}"></textarea>
+                    </div>
+                    <div class="col-sm-9" *ngSwitchCase="3">
+                        <div class="form-check">
+                            <div *ngFor="let option of questions.option; let i = index" formArrayName="checkBox{{questionIndex}}">
+                                <input [formControlName]="i" class="form-check-input" type="checkbox" id="flexCheckDefault{{i}}">
+                                <label class="form-check-label" for="flexCheckDefault{{i}}">
+                                    {{option.textValue}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngSwitchCase="4">
+                        <div class="form-check">
+                            <div *ngFor="let option of questions.option; let i = index">
+                                <input formControlName="radio{{questionIndex}}" class="form-check-input" type="radio"
+                                    id="flexRadioDefault{{i}}" value="radio{{i+1}}">
+                                <label class="form-check-label" for="flexRadioDefault{{i}}">
+                                    {{option.textValue}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngSwitchCase="5">
+                        <div class="input-group">
+                            <input formControlName="date{{questionIndex}}" class="form-control" placeholder="yyyy-mm-dd"
+                                ngbDatepicker #d="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                    type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+
+    <div class="row">
+        <div class="col-md-12 bottom-btn">
+            <button type="button" class="btn btn-outline-danger" (click)="close()">Cancel</button>
+            <button type="button" class="btn btn-outline-warning" (click)="submit()"
+                [disabled]="fromPage === 'dynamicFormPage' && tableArray.length == 0">Submit</button>
+        </div>
+    </div>
+</div>

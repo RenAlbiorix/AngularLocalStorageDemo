@@ -1,0 +1,26 @@
+.table-responsive {
+    margin: 20px;
+}
+
+.btn-outline-secondary:hover {
+    background-color: transparent !important;
+}
+
+.btn-outline-secondary {
+    color: #6c757d !important;
+    font-weight: bold !important;
+    border-width: 2px; 
+}
+
+.btn-outline-warning:hover {
+    background-color: transparent !important;
+}
+
+.btn-outline-warning {
+    color: orange !important;
+    border-color: orange !important;
+    font-weight: bold !important;
+    border-width: 2px;
+    float: right;
+    margin-bottom: 10px;
+}

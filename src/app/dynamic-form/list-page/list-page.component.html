@@ -1,0 +1,17 @@
+<div class="table-responsive">
+    <button type="button" class="btn btn-outline-warning" (click)="openPopup()">Add Form Format</button>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Form Name</th>
+                <th scope="col">Preview</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let item of dynamicFormArray">
+                <td>{{item.formName}}</td>
+                <td><button type="button" class="btn btn-outline-secondary" (click)="preview(item)">Preview Form</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
