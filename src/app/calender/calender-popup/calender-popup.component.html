@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="mb-3 row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-clock" viewBox="0 0 16 16">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                    </svg>
+                </div>
+                <div class="col-md-11">
+                    Time : {{calenderObject.calendarData[calenderObject.timeRecordIndex].time}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-calendar-event" viewBox="0 0 16 16">
+                        <path
+                            d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                        <path
+                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                    </svg>
+                </div>
+                <div class="col-md-11">
+                    Date :
+                    {{calenderObject.calendarData[calenderObject.timeRecordIndex]?.days[calenderObject.dayRecordIndex]?.day}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="eventForm">
+        <div class="mb-3 row">
+            <label for="inputUser" class="col-sm-3 col-form-label">User List</label>
+            <div class="col-sm-9">
+                <select class="form-select" formControlName="user"
+                    id="inputUser">
+                    <ng-container *ngFor="let item of calenderObject.userData">
+                        <option [value]="item._id">{{item.name}}</option>
+                    </ng-container>  
+                </select>
+                <div
+                    *ngIf="eventForm.controls.user.invalid && (eventForm.controls.user.dirty || eventForm.controls.user.touched)">
+                    <span class="errorMsg" *ngIf="eventForm.controls.user.errors?.required">User is required</span>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputFormName" class="col-sm-3 col-form-label">Event Title</label>
+            <div class="col-sm-9">
+                <input type="text" formControlName="eventName" class="form-control" id="inputFormName">
+                <div *ngIf="eventForm.controls.eventName.invalid && (eventForm.controls.eventName.dirty || eventForm.controls.eventName.touched)">
+                    <span class="errorMsg" *ngIf="eventForm.controls.eventName.errors?.required">Event title is required</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="inputDescription" class="col-sm-3 col-form-label">Event
+                Description</label>
+            <div class="col-sm-9">
+                <textarea formControlName="description" class="form-control" id="inputDescription" rows="3" name="desc"></textarea>
+                <div *ngIf="eventForm.controls.description.invalid && (eventForm.controls.description.dirty || eventForm.controls.description.touched)">
+                    <span class="errorMsg" *ngIf="eventForm.controls.description.errors?.required">Event description is required</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row m-0">
+            <div class="col-md-4 form-check">
+                <input formControlName="eventType" class="form-check-input" type="radio" id="radio1" value="technical">
+                <label class="form-check-label" for="radio1">
+                    Technical
+                </label>
+            </div>
+            <div class="col-md-4 form-check">
+                <input formControlName="eventType" class="form-check-input" type="radio" id="radio2"
+                    value="nonTechnical">
+                <label class="form-check-label" for="radio2">
+                    Non Technical
+                </label>
+            </div>
+            <div class="col-md-4 form-check">
+                <input formControlName="eventType" class="form-check-input" type="radio" id="radio3"
+                    value="dontKnow">
+                <label class="form-check-label" for="radio3">
+                    Don't Know
+                </label>
+            </div>
+        </div>
+    </form>
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <button style="margin-bottom: 10px;float: right;" type="button" class="btn btn-outline-warning"
+                    (click)="addTitle()">Add Title</button>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr *ngFor="let item of titleTableArry; let i = index">
+                            <td>
+                                {{item}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span (click)="delete(i)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                        <path fill-rule="evenodd"
+                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                    </svg>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-md-12 bottom-btn bottom-button">
+            <button type="button" class="btn btn-outline-danger" (click)="close()">Cancel</button>
+            <button type="button" class="btn btn-outline-warning" (click)="submit()">Submit</button>
+        </div>
+    </div>
+</div>

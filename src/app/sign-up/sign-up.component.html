@@ -1,0 +1,56 @@
+<div class="container">
+    <form [formGroup]="signUpForm"  style="margin:20px;">
+        <div class="mb-3 row">
+            <label for="userName" class="col-sm-3 col-form-label">User Name</label>
+            <div class="col-sm-9">
+                <input type="text" formControlName="userName" class="form-control" id="userName">
+                <div
+                    *ngIf="signUpForm.controls.userName.invalid && (signUpForm.controls.userName.dirty || signUpForm.controls.userName.touched)">
+                    <span class="errorMsg" *ngIf="signUpForm.controls.userName.errors?.required">User name is
+                        required</span>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="email" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+                <input type="email" formControlName="email" class="form-control" id="email">
+                <div
+                    *ngIf="signUpForm.controls.email.invalid && (signUpForm.controls.email.dirty || signUpForm.controls.email.touched)">
+                    <span class="errorMsg" *ngIf="signUpForm.controls.email.errors?.required">Email is
+                        required</span>
+                    <span class="errorMsg" *ngIf="signUpForm.controls.email.errors?.email">Email is invalid</span>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="password" class="col-sm-3 col-form-label">Password</label>
+            <div class="col-sm-9">
+                <input type="password" formControlName="password" class="form-control" id="password">
+                <div
+                    *ngIf="signUpForm.controls.password.invalid && (signUpForm.controls.password.dirty || signUpForm.controls.password.touched)">
+                    <span class="errorMsg" *ngIf="signUpForm.controls.password.errors?.required">Password is
+                        required</span>
+                    <span class="errorMsg" *ngIf="signUpForm.controls.password.errors?.minlength">Password should be at least 8 charater</span>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="conformPassword" class="col-sm-3 col-form-label">Conform Password</label>
+            <div class="col-sm-9">
+                <input type="text" formControlName="conformPassword" class="form-control" id="conformPassword">
+                <div
+                    *ngIf="signUpForm.controls.conformPassword.invalid && (signUpForm.controls.conformPassword.dirty || signUpForm.controls.conformPassword.touched)">
+                    <span class="errorMsg" *ngIf="signUpForm.controls.conformPassword.errors?.required">Conform password is
+                        required</span>
+                    <span class="errorMsg" *ngIf="signUpForm.controls.conformPassword.errors?.minlength">Conform password should be at least 8 charater</span>
+                    <span class="errorMsg" *ngIf="signUpForm.controls.conformPassword.errors?.passwordMismatch">Conform password should be same as password</span>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-outline-danger" (click)="cancel()">Cancel</button>
+            <button type="button" class="btn btn-outline-warning" style="margin-left: 40px;" (click)="save()">Submit</button>
+        </div>
+    </form>
+</div>

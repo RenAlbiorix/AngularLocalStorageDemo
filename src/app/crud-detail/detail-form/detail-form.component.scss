@@ -1,34 +1,3 @@
-.btn-outline-warning {
-    color: orange !important;
-    border-color: orange !important;
-    font-weight: bold !important;
-    border-width: 2px;
-}
-
-.btn-outline-danger {
-    color: #dc3545 !important;
-    font-weight: bold !important;
-    border-width: 2px;
-}
-
-.btn-outline-success {
-    color: #198754 !important;
-    font-weight: bold !important;
-    border-width: 2px;
-}
-
-.btn-outline-warning:hover {
-    background-color: transparent !important;
-}
-
-.btn-outline-success:hover {
-    background-color: transparent !important;
-}
-
-.btn-outline-danger:hover {
-    background-color: transparent !important;
-}
-
 form {
     margin-top: 20px;
     margin-bottom: 30px;
@@ -42,9 +11,7 @@ form {
     }
 }
 
-.errorMsg {
-    color: red;
-}
+
 
 button.calendar, button.calendar:active {
     width: 2.75rem;

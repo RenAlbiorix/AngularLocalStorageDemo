@@ -1,0 +1,50 @@
+<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col-md-12 box shadow">
+            <form [formGroup]="loginForm" style="margin-top: 25px;">
+                <div class="row" style="margin-bottom: 25px;">
+                    <div class="col-md-12">
+                        <h1 style="color: orangered;text-align: center;font-weight: bold;">Albiorix</h1>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputUserName" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="text" formControlName="email" class="form-control" id="inputUserName">
+                        <div
+                            *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)">
+                            <span class="errorMsg" *ngIf="loginForm.controls.email.errors?.required">Email is
+                                required</span>
+                            <span class="errorMsg" *ngIf="loginForm.controls.email.errors?.email">Email format is
+                                wrong</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="inputUserName" class="col-sm-3 col-form-label">Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" formControlName="password" class="form-control" id="inputUserName">
+                        <div
+                            *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
+                            <span class="errorMsg" *ngIf="loginForm.controls.password.errors?.required">Password is
+                                required</span>
+                            <span class="errorMsg" *ngIf="loginForm.controls.password.errors?.minlength">Password should
+                                be at least 8 character</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="errorMessage != ''">
+                    <div class="col-md-12" style="text-align: center;">
+                        <span class="errorMsg">{{errorMessage}}</span>
+                    </div>
+                </div>
+            </form>
+            <div style="text-align: center;margin-top: 50px;">
+                <button type="button" class="btn btn-outline-warning" (click)="signUp()">SIGN UP</button>
+                <button type="button" class="btn btn-outline-warning" style="margin-left: 40px;" (click)="signIn()">SIGN
+                    IN</button>
+            </div>
+        </div>
+    </div>
+</div>

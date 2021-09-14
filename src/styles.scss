@@ -1,7 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import '~ngx-toastr/toastr';
 /* Font Family */
 html, body {
     font-family: 'Poppins', sans-serif;
+}
+
+.errorMsg {
+    color: red;
+}
+
+.btn-outline-warning {
+    color: orange !important;
+    border-color: orange !important;
+    font-weight: bold !important;
+    border-width: 2px;
+}
+
+.btn-outline-danger {
+    color: #dc3545 !important;
+    font-weight: bold !important;
+    border-color: #dc3545 !important;
+    border-width: 2px;
+}
+
+.btn-outline-success {
+    color: #198754 !important;
+    font-weight: bold !important;
+    border-color: #198754 !important;
+    border-width: 2px;
+}
+
+.btn-outline-warning:hover {
+    background-color: transparent !important;
+}
+
+.btn-outline-success:hover {
+    background-color: transparent !important;
+}
+
+.btn-outline-danger:hover {
+    background-color: transparent !important;
 }
