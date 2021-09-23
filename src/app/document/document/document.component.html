@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <ul *ngFor="let item of availableUserArray">
+                <li>{{item.name}}</li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;" *ngIf="information">
+                    <div>
+                        <span>Last Update By : {{information?.updateBy}}</span>
+                    </div>
+                    <div>
+                        <span>Last Update At : {{information?.updateTime}}</span>
+                    </div>
+                    <div *ngIf="typingName != ''">
+                        <span>{{typingName}} is typing...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form>
+                        <textarea style="width: 100%;" rows="10" (keyup)="onKeyUp()" (keydown)="onKeyDown()"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="textValue"></textarea>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

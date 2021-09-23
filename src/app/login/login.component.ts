@@ -5,6 +5,7 @@ import { LoginService } from '../common/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { SocketService } from '../common/services/socket.service';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,13 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private toastr: ToastrService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private socketService: SocketService
+  ) { 
+    if (localStorage.getItem('loginInfo')) {
+      this.router.navigate(['/detailPage']);
+    }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -42,7 +48,8 @@ export class LoginComponent implements OnInit {
           name: res.user.name
         }
         localStorage.setItem('loginInfo', JSON.stringify(loginInfo))
-        this.router.navigate(['/detailPage'])
+        this.router.navigate(['/detailPage']);
+        this.socketService.emit("join", '@albiorix');
     }, (err:any) => {
         this.toastr.error(err.error.message);
     });

@@ -47,7 +47,8 @@ export class SignUpComponent implements OnInit {
     let obj = {
       name: this.signUpForm.value.userName,
       email: this.signUpForm.value.email,
-      password: this.signUpForm.value.password
+      password: this.signUpForm.value.password,
+      isDocUserActive: false
     }
     this.loginService.signUp(obj).subscribe((res: any) => {
       if (!res.error) {
